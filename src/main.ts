@@ -120,6 +120,7 @@ const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
     (paciente: Pacientes) => paciente.especialidad === "Pediatra"
   );
 };
+//este creo que deberia salir true corrigeme si me equivoco,supongo q es q no lo ha hecho inmutable
 console.log(HayPacientesDePediatria(pacientes));
 
 interface NumeroPacientesPorEspecialidad {
