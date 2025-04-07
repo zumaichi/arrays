@@ -76,7 +76,77 @@ const pacientes: Pacientes[] = [
 
 const obtenPacientesAsignadosAPediatria = (
   pacientes: Pacientes[]
-): Pacientes[] => { 
-  return pacientes.filter((paciente) => paciente.especialidad === "Pediatra");
+): Pacientes[] => {
+  return pacientes.filter(
+    (paciente: Pacientes) => paciente.especialidad === "Pediatra"
+  );
 };
- console.log(obtenPacientesAsignadosAPediatria(pacientes))
+console.log(obtenPacientesAsignadosAPediatria(pacientes));
+
+const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (
+  pacientes: Pacientes[]
+): Pacientes[] => {
+  return obtenPacientesAsignadosAPediatria(pacientes).filter(
+    (paciente: Pacientes) => paciente.edad < 10
+  );
+};
+
+console.log(obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(pacientes));
+
+const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
+  return pacientes.some(
+    (paciente: Pacientes) =>
+      paciente.temperatura > 39 && paciente.frecuenciaCardiaca > 100
+  );
+};
+//aquii he eliminado el return y la variable q me pusisites por q si no al cuando cambiao las temperaturas o las frecuencias siguen siuin funcionarme bbien y siemprew devueleve false ,q es lo q esta preddeterminado, por favor explicame la forma correcta.
+console.log(activarProtocoloUrgencia(pacientes));
+
+const reasignaPacientesAMedicoFamilia = (
+  pacientes: Pacientes[]
+): Pacientes[] => {
+  return pacientes.map((paciente: Pacientes) => {
+    if (paciente.especialidad === "Pediatra") {
+      return { ...paciente, especialidad: "Medico de familia" };
+    }
+    return paciente;
+  });
+};
+
+console.log(reasignaPacientesAMedicoFamilia(pacientes));
+
+const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
+  return pacientes.every(
+    (paciente: Pacientes) => paciente.especialidad === "Pediatra"
+  );
+};
+console.log(HayPacientesDePediatria(pacientes));
+
+interface NumeroPacientesPorEspecialidad {
+  medicoDeFamilia: number;
+  pediatria: number;
+  cardiologia: number;
+}
+
+const cuentaPacientesPorEspecialidad = (
+  pacientes: Pacientes[]
+): NumeroPacientesPorEspecialidad => {
+  const resultado: NumeroPacientesPorEspecialidad = {
+    medicoDeFamilia: 0,
+    pediatria: 0,
+    cardiologia: 0,
+  };
+
+  pacientes.forEach((paciente: Pacientes) => {
+    if (paciente.especialidad === "Medico de familia") {
+      resultado.medicoDeFamilia++;
+    } else if (paciente.especialidad === "Pediatra") {
+      resultado.pediatria++;
+    } else if (paciente.especialidad === "Cardiólogo") {
+      resultado.cardiologia++;
+    }
+  });
+
+  return resultado;
+};
+console.log(cuentaPacientesPorEspecialidad(pacientes));
